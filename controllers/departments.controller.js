@@ -5,7 +5,7 @@ exports.getAll = async (req, res) => {
     const departments = await Department.find();
     res.json(departments);
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -19,7 +19,7 @@ exports.getRandom = async (req, res) => {
     if (!dep) return res.status(404).json({ message: 'Not found' });
     res.json(dep);
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -30,7 +30,7 @@ exports.getById = async (req, res) => {
     if (!dep) return res.status(404).json({ message: 'Not found' });
     res.json(dep);
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
 
     res.json({ message: 'OK' });
   } catch (err) {
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -59,11 +59,9 @@ exports.update = async (req, res) => {
 
     if (!updated) return res.status(404).json({ message: 'Not found' });
 
-    res.json(updated);
+    res.json({ message: 'OK' });
   } catch (err) {
-    res.status(500).json({
-      message: err.message || err
-    });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -73,10 +71,8 @@ exports.delete = async (req, res) => {
 
     if (!deleted) return res.status(404).json({ message: 'Not found' });
 
-    res.json(deleted);
+    res.json({ message: 'OK' });
   } catch (err) {
-    res.status(500).json({
-      message: err.message || err
-    });
+    res.status(500).json({ message: err.message });
   }
 };
