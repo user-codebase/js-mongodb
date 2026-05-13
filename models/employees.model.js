@@ -4,7 +4,7 @@ const employeesSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   department: { 
-    type: String, 
+    type: mongoose.Schema.Types.ObjectId, 
     required: true,
     ref: 'Department'
   }

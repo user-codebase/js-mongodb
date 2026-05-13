@@ -51,13 +51,13 @@ exports.update = async (req, res) => {
   try {
     const { name, price } = req.body;
 
-    const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).json({ message: 'Not found' });
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $set: { name, price } },
+      { new: true, runValidators: true }
+    );
 
-    product.name = name;
-    product.price = price;
-
-    await product.save();
+    if (!updated) return res.status(404).json({ message: 'Not found' });
 
     res.json({ message: 'OK' });
   } catch (err) {

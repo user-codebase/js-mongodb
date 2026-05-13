@@ -51,14 +51,13 @@ exports.update = async (req, res) => {
   try {
     const { firstName, lastName, department } = req.body;
 
-    const emp = await Employee.findById(req.params.id);
-    if (!emp) return res.status(404).json({ message: 'Not found' });
+    const updated = await Employee.findByIdAndUpdate(
+      req.params.id,
+      { $set: { firstName, lastName, department } },
+      { new: true, runValidators: true }
+    );
 
-    emp.firstName = firstName;
-    emp.lastName = lastName;
-    emp.department = department;
-
-    await emp.save();
+    if (!updated) return res.status(404).json({ message: 'Not found' });
 
     res.json({ message: 'OK' });
   } catch (err) {
